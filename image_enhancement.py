@@ -61,6 +61,7 @@ def gammaCorrection(image, gamma=1.0):
 def enhance_image(image):
 
     redChannelCompensatedImage = redChannelCompensation(image)
+    grayWorldImageWithoutCompensation = gray_world(image)
     grayWorldImage = gray_world(redChannelCompensatedImage)
     gammaCorrectedImage = gammaCorrection(grayWorldImage, 1.5)
     tempImage = img_as_float(skimage.filters.gaussian(img_as_float(grayWorldImage), 1, multichannel=False))
@@ -130,5 +131,21 @@ def enhance_image(image):
                     (wk1Norm[i][j] * sharpImage[i][j][k] + wk2Norm[i][j] * gammaCorrectedImage[i][j][k]).clip(0, 1))
             eachrowList.append(eachTriplet)
         naiveFusionImage.append(eachrowList)
-
+        
+        fig1, ax1 = plt.subplots(1, 2)
+        ax1[0].imshow(image)
+        ax1[0].set_title("Original Image")
+        ax1[1].imshow(redChannelCompensatedImage)
+        ax1[1].imshow("redChannel Compensated Image")
+        fig2, ax2 = plt.subplots(1, 2)
+        ax2[0].imshow(grayWorldImage)
+        ax2[0].set_title("gray world Image after rcc")
+        ax2[1].imshow(grayWorldImageWithoutCompensation)
+        ax2[1].set_title("gray world Image without rcc")
+        fig3, ax3 = plt.subplots(1, 2)
+        ax3[0].imshow(image)
+        ax3[0].set_title("original image")
+        ax3[1].imshow(gammaCorrectedImage)
+        ax3[1].set_title("gamma corrected image")
+        plt.show()
     return img_as_ubyte(naiveFusionImage)
