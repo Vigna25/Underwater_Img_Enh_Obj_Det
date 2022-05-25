@@ -8,10 +8,10 @@ import os
 
 
 images = os.listdir("./img read")
-#print(images)
+
 count = 1
 for imagePath in images:
-    #print("./img read/" + imagePath)
+
     image = imread("./img read/" + imagePath)
 
     image = Image.fromarray(image)

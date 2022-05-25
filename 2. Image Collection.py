@@ -1,22 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # 0. Image Enhancement
-
-# In[1]:
-
+# 0. Image Enhancement
 
 get_ipython().system('pip install scikit-image')
 get_ipython().system('pip install opencv-python')
 
 
-# In[2]:
-
-
 get_ipython().system('pip install opencv-contrib-python ')
-
-
-# In[2]:
 
 
 from skimage.io import imread, imsave
@@ -48,13 +36,8 @@ for imagePath in images:
 
 # # 1. Import Dependencies
 
-# In[ ]:
-
-
 get_ipython().system('pip install opencv-python')
 
-
-# In[ ]:
 
 
 # Import opencv
@@ -72,22 +55,11 @@ import time
 
 # # 2. Define Images to Collect
 
-# In[ ]:
-
-
 labels = ['Fishes', 'Submarines', 'Torpedoes']
-#number_imgs = 5
 
-
-# # 3. Setup Folders 
-
-# In[ ]:
-
+## 3. Setup Folders
 
 IMAGES_PATH = os.path.join('Tensorflow', 'workspace', 'images', 'collectedimages')
-
-
-# In[ ]:
 
 
 if not os.path.exists(IMAGES_PATH):
@@ -101,85 +73,27 @@ for label in labels:
         get_ipython().system('mkdir {path}')
 
 
-# # 4. Capture Images
-
-# In[ ]:
-
-
-#for label in labels:
-    #cap = cv2.VideoCapture(0)
-    #print('Collecting images for {}'.format(label))
-    #time.sleep(5)
-    #for imgnum in range(number_imgs):
-        #print('Collecting image {}'.format(imgnum))
-        #ret, frame = cap.read()
-        #imgname = os.path.join(IMAGES_PATH,label,label+'.'+'{}.jpg'.format(str(uuid.uuid1())))
-        #cv2.imwrite(imgname, frame)
-        #cv2.imshow('frame', frame)
-        #time.sleep(2)
-
-        #if cv2.waitKey(1) & 0xFF == ord('q'):
-            #break
-#cap.release()
-#cv2.destroyAllWindows()
-
-
-# # 5. Image Labelling
-
-# In[ ]:
-
+# 5. Image Labelling
 
 get_ipython().system('pip install --upgrade pyqt5 lxml')
 
-
-# In[ ]:
-
-
 LABELIMG_PATH = os.path.join('Tensorflow', 'labelimg')
-
-
-# In[ ]:
-
 
 if not os.path.exists(LABELIMG_PATH):
     get_ipython().system('mkdir {LABELIMG_PATH}')
     get_ipython().system('git clone https://github.com/tzutalin/labelImg {LABELIMG_PATH}')
-
-
-# In[ ]:
-
 
 if os.name == 'posix':
     get_ipython().system('make qt5py3')
 if os.name =='nt':
     get_ipython().system('cd {LABELIMG_PATH} && pyrcc5 -o libs/resources.py resources.qrc')
 
-
-# In[ ]:
-
-
 get_ipython().system('cd {LABELIMG_PATH} && python labelImg.py')
 
 
-# # 6. Move them into a Training and Testing Partition
-
-# # OPTIONAL - 7. Compress them for Colab Training
-
-# In[ ]:
+# 6. Move them into a Training and Testing Partition
 
 
-TRAIN_PATH = os.path.join('Tensorflow', 'workspace', 'images', 'train')
-TEST_PATH = os.path.join('Tensorflow', 'workspace', 'images', 'test')
-ARCHIVE_PATH = os.path.join('Tensorflow', 'workspace', 'images', 'archive.tar.gz')
-
-
-# In[ ]:
-
-
-get_ipython().system('tar -czf {ARCHIVE_PATH} {TRAIN_PATH} {TEST_PATH}')
-
-
-# In[ ]:
 
 
 
